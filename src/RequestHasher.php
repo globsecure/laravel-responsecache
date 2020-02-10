@@ -17,8 +17,15 @@ class RequestHasher
 
     public function getHashFor(Request $request): string
     {
-        return 'responsecache-'.md5(
-            "{$request->getRequestUri()}/{$request->getMethod()}/".$this->cacheProfile->cacheNameSuffix($request)
-        );
+         if ($request->ajax()) {
+             return 'responsecache-ajax-'.md5(
+                     "{$request->getRequestUri()}/{$request->getMethod()}/".$this->cacheProfile->cacheNameSuffix($request)
+                 );
+         } else {
+             return 'responsecache-'.md5(
+                     "{$request->getRequestUri()}/{$request->getMethod()}/".$this->cacheProfile->cacheNameSuffix($request)
+             );
+         }
+
     }
 }

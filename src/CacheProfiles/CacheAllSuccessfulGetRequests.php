@@ -9,14 +9,9 @@ class CacheAllSuccessfulGetRequests extends BaseCacheProfile
 {
     public function shouldCacheRequest(Request $request): bool
     {
-        // if ($request->ajax()) {
-        //     return false;
-        // }
-
         if ($this->isRunningInConsole()) {
             return false;
         }
-
         return $request->isMethod('get');
     }
 
